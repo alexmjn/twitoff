@@ -10,7 +10,8 @@ from web_app.routes.book_routes import book_routes
 def create_app():
 
     app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///C://Users//ajenk//GitHub//twitoff//twitoff.db"
+#adding the fourth slash made it not run
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///C://Users//ajenk//GitHub//twitoff//twitoff2.db"
 #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///web_app_11.db"
     db.init_app(app)
     migrate.init_app(app, db)

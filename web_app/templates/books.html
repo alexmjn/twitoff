@@ -1,22 +1,27 @@
-Hey here are some books.
-<html></html>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-            <p>{{ message }}</p>
-            <p class="browsehappy">message. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-            <p>{{ books }}</p>
-        <script src="" async defer></script>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books Page</title>
+</head>
+<body>
+
+    <h1>Welcome to the Books Page</h1>
+
+    <p>{{ message }}</p>
+
+    {% if books %}
+    <ul>
+    {% for book in books %}
+        <li>{{ book["title"] }}</li>
+    {% endfor %}
+    </ul>
+
+    {% else %}
+        <p>Books not found.</p>
+    {% endif %}
+
+</body>
 </html>
