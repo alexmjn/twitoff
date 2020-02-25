@@ -1,3 +1,5 @@
+# pylint: disable=import-error
+
 import basilica
 import os
 from dotenv import load_dotenv
@@ -10,7 +12,7 @@ API_KEY = os.getenv("BASILICA_API_KEY")
 
 connection = basilica.Connection(API_KEY)
 
-if __name__ = "__main__":
+if __name__ == "__main__":
 
     sentences = [
     "This is a sentence!",

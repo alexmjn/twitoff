@@ -1,14 +1,22 @@
+# pylint: disable=import-error
+import basilica
 from flask import Blueprint, render_template, jsonify
-
 from web_app.twitter_service import twitter_api
 from web_app.models import db, User, Tweet
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+
+API_KEY = os.getenv("BASILICA_API_KEY")
 
 twitter_api_client = twitter_api()
 
 twitter_routes = Blueprint("twitter_routes", __name__)
 
 # Print current users
+# TODO: the Twitter users are loading into the database, but
+# we're getting an "Oops- User not found!" message there.
 @twitter_routes.route("/users")
 @twitter_routes.route("/users.json")
 def list_users():
@@ -41,21 +49,23 @@ def get_user(screen_name=None):
         #breakpoint()
 
         statuses = twitter_api_client.user_timeline(screen_name, tweet_mode="extended", count=50, exclude_replies=True, include_rts=False)
-        #db_tweets = []
+        db_tweets = []
         for status in statuses:
             print(status.full_text)
             print("----")
-            #print(dir(status))
 
             # Find or create database tweet:
             db_tweet = Tweet.query.get(status.id) or Tweet(id=status.id)
             db_tweet.user_id = status.author.id # or db_user.id
             db_tweet.full_text = status.full_text
-            #embedding = basilica_client.embed_sentence(status.full_text, model="twitter") # todo: prefer to make a single request to basilica with all the tweet texts, instead of a request per tweet
-            #print(len(embedding))
-            #db_tweet.embedding = embedding
+
+            with basilica.Connection(API_KEY) as c:
+                embeddings = list(c.embed_sentence(sentences))
+            embedding = basilica_client.embed_sentence(status.full_text, model="twitter") # todo: prefer to make a single request to basilica with all the tweet texts, instead of a request per tweet
+
+            db_tweet.embedding = embedding
             db.session.add(db_tweet)
-            #db_tweets.append(db_tweet)
+            db_tweets.append(db_tweet)
         db.session.commit()
 
         return render_template("user.html", user=db_user, tweets=statuses) # tweets=db_tweets

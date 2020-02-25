@@ -1,3 +1,5 @@
+# pylint: disable=import-error
+import basilica
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
