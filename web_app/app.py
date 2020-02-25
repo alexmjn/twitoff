@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, render_template, request
+# pylint: disable=import-error
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
