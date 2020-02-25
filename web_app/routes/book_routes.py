@@ -1,15 +1,11 @@
-from flask import Blueprint, jsonify, request, render_template, flash
+from flask import Blueprint, jsonify, request, render_template, flash, redirect
 
 from web_app.models import db, Book
 
 book_routes = Blueprint("book_routes", __name__)
 
 def get_books_from_db():
-    #return [
-    #    {"id": 1, "title": "Book 1"},
-    #    {"id": 2, "title": "Book 2"},
-    #    {"id": 3, "title": "Book 3"},
-    #]
+
     books =[]
     book_records = Book.query.all()
     for b in book_records:
@@ -41,7 +37,10 @@ def create_book():
     db.session.add(new_book)
     db.session.commit()
 
-    return jsonify({
-        "message": "BOOK CREATED OK",
-        "book": dict(request.form)
-    })
+    # return jsonify({
+    #     "message": "BOOK CREATED OK",
+    #     "book": dict(request.form)
+    # })
+    flash(f"Book '{new_book.title}' created successfully!", "success")
+
+    return redirect(f"/books")

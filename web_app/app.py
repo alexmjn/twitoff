@@ -14,6 +14,9 @@ def create_app():
 #adding the fourth slash made it not run
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///C://Users//ajenk//GitHub//twitoff//twitoff2.db"
 #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///web_app_11.db"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+ #   app.config["SECRET_KEY"] = SECRET_KEY
+
     db.init_app(app)
     migrate.init_app(app, db)
 
