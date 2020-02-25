@@ -14,3 +14,9 @@ dir(response)
 data = json.loads(response.text)
 # this will automatically convert into disctionary.
 print(type(data))
+
+print(data.keys)
+latest_close = data["Time Series (Daily)"]["2020-02-25"]["4. close"]
+print("LATEST CLOSING PRICE:", latest_close)
+
+#note the multilayered indexing here!
