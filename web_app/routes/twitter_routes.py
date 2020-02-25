@@ -60,12 +60,12 @@ def get_user(screen_name=None):
             db_tweet.full_text = status.full_text
 
             with basilica.Connection(API_KEY) as c:
-                embeddings = list(c.embed_sentence(sentences))
-            embedding = basilica_client.embed_sentence(status.full_text, model="twitter") # todo: prefer to make a single request to basilica with all the tweet texts, instead of a request per tweet
+                embedding = list(c.embed_sentence(status.full_text, model = "twitter"))
 
             db_tweet.embedding = embedding
             db.session.add(db_tweet)
             db_tweets.append(db_tweet)
+
         db.session.commit()
 
         return render_template("user.html", user=db_user, tweets=statuses) # tweets=db_tweets
