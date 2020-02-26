@@ -3,6 +3,7 @@ import basilica
 from flask import Blueprint, render_template, jsonify
 from web_app.twitter_service import twitter_api
 from web_app.models import db, User, Tweet
+from web_app.basilica_service import connection as basilica_client
 import os
 from dotenv import load_dotenv
 

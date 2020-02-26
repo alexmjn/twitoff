@@ -7,12 +7,13 @@ from flask_migrate import Migrate
 from web_app.models import db, migrate
 from web_app.routes.home_routes import home_routes
 from web_app.routes.twitter_routes import twitter_routes
+from web_app.routes.admin_routes import admin_routes
 
 def create_app():
 
     app = Flask(__name__)
 #adding the fourth slash made it not run
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///C://Users//ajenk//GitHub//twitoff//twitoff2.db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///C://Users//ajenk//GitHub//twitoff//twitoff.db"
 #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///web_app_11.db"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
  #   app.config["SECRET_KEY"] = SECRET_KEY
@@ -22,5 +23,6 @@ def create_app():
 
     app.register_blueprint(home_routes)
     app.register_blueprint(twitter_routes)
+    app.register_blueprint(admin_routes)
 
     return app
