@@ -20,3 +20,4 @@ class Tweet(db.Model):
     full_text = db.Column(db.String(500))
     embedding = db.Column(db.PickleType)
     user = db.relationship("User", backref=db.backref("tweets", lazy=True))
+    #lets .tweets work on users, and .user work on tweets.
