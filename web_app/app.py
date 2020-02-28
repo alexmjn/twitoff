@@ -13,7 +13,7 @@ from web_app.routes.stat_routes import stat_routes
 def create_app():
 
     app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///C://Users//ajenk//GitHub//twitoff//twitoff.db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 #   app.config["SECRET_KEY"] = SECRET_KEY
 
